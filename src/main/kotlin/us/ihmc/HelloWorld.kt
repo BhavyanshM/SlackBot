@@ -13,9 +13,7 @@ import javax.swing.text.html.parser.Parser
 fun main(args: Array<String>) {
 
     val PLAN_NUMBER = 23
-    val BAMBOO_USERNAMe = "bmishra"
-    val BAMBOO_PASSWORD = "mishra@ihmc"
-    val SLACK_ACCESS_TOKEN = "xoxb-157670531812-371945587298-Y60nAVtKQFL0zYRRTZbgIXjW"
+//  GOES HERE
 
 	val session = SlackSessionFactory.createWebSocketSlackSession(SLACK_ACCESS_TOKEN);
 	session.connect();
