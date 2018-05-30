@@ -16,8 +16,8 @@ fun main(args: Array<String>) {
     // CREDS GO HERE
 
 
-    val CROSS_MARK_EMOJI = ":negative_squared_cross_mark:"
-    val CHECK_MARK_EMOJI = ":heavy_check_mark:"
+    val CROSS_MARK_EMOJI = ":bamboo_failed:"
+    val CHECK_MARK_EMOJI = ":bamboo_passed:"
 
 
     val session = SlackSessionFactory.createWebSocketSlackSession(SLACK_ACCESS_TOKEN);
