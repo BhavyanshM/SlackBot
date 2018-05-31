@@ -1,5 +1,8 @@
 package us.ihmc
 
+import com.github.seratch.jslack.Slack
+import com.github.seratch.jslack.api.rtm.RTMClient
+import com.ullink.slack.simpleslackapi.SlackAttachment
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
@@ -43,6 +46,9 @@ fun main(args: Array<String>) {
             val requestGithub = Request.Builder()
                     .url("https://api.github.com/repos/ihmcrobotics/${packageName}/issues")
                     .build()
+            val requestArtifactory = Request.Builder()
+                    .url("http://10.6.6.221:8081/artifactory/api/search/latestVersion?g=us.ihmc&a=exoskeleton")
+                    .header("Authorization", Credentials.basic(BINTRAY_USERNAME, ARTIFACTORY_API_KEY))
 
             val responseBamboo = client.newCall(requestBamboo).execute()
             val responseBintray = client.newCall(requestBintray).execute()
@@ -51,6 +57,11 @@ fun main(args: Array<String>) {
             val dataBintray = responseBintray.body()!!.string()
             val dataBamboo = responseBamboo.body()!!.string()
             val dataGithub = responseGithub.body()!!.string()
+
+//            if(dataBintray.contains("not found"))
+//                val responseArtifactory = client.newCall(requestArtifactory).execute()
+
+
 
             val jsonBamboo = JSONObject(dataBamboo)
             val jsonBintray = JSONObject(dataBintray)
@@ -97,13 +108,30 @@ fun main(args: Array<String>) {
 
             val output = "${buildStatusOutput}${bintrayOutput}${githubOutput}"
 
-            session.sendMessage(posted.channel, output, null)
+            val slackment = SlackAttachment()
+            slackment.setFallback("Project Statistics")
+            slackment.setColor("#7CD197")
+            slackment.setPretext("Project Statistics for ${bambooPlanShortName}")
+            slackment.setText(output)
+//            {
+//                "attachments": [
+//                {
+//                    "fallback": "New ticket from Andrea Lee - Ticket #1943: Can't reset my password - https://groove.hq/path/to/ticket/1943",
+//                    "pretext": "New ticket from Andrea Lee",
+//                    "title": "Ticket #1943: Can't reset my password",
+//                    "title_link": "https://groove.hq/path/to/ticket/1943",
+//                    "text": "Help! I tried to reset my password but nothing happened!",
+//                    "color": "#7CD197"
+//                }
+//                ]
+//            }
+            session.sendMessage(posted.channel, null, slackment)
 
 		}
 	});
 
 
 
-}
+    }
 
 
