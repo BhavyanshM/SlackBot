@@ -1,4 +1,4 @@
 #! /bin/bash
 
 docker build -t slackbotimg .
-docker run -it slackbotimg
+docker run -dt slackbotimg
