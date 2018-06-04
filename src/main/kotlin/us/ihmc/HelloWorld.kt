@@ -37,7 +37,7 @@ fun main(args: Array<String>) {
 
             val requestBamboo = Request.Builder()
                     .url("https://bamboo.ihmc.us/rest/api/latest/result.json?os_authType=basic&max-result=50")
-                    .header("Authorization", Credentials.basic(BAMBOO_USERNAMe, BAMBOO_PASSWORD))
+                    .header("Authorization", Credentials.basic(BAMBOO_USERNAME, BAMBOO_PASSWORD))
                     .build()
             val requestBintray = Request.Builder()
                     .url("https://api.bintray.com/packages/ihmcrobotics/maven-release/${packageName}")
